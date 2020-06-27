@@ -13,5 +13,5 @@ Full Javascript grabcut web demo. Based on:
 
 ## How to run locally
 - Clone the repository
-- Run a webserver
-- go to http://localhost/grabcut.htm
+- Run node app.js
+- go to http://localhost:3000/grabcut
