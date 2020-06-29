@@ -8,4 +8,4 @@ app.listen(port, () => console.log(`Example app listening at http://localhost:${
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
-app.get('/grabcut', (req, res) => res.sendFile(__dirname + '/index.htm'));
+app.get('/grabcut', (req, res) => res.sendFile(__dirname + '/public/index.htm'));

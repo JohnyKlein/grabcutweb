@@ -1,0 +1,62 @@
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>Full web opencv grabcut</title>
+      <link rel="stylesheet" href="index.css">
+      <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+   </head>
+   <body>
+      <div class="topBar">
+         <h1>Grabcut</h1>
+      </div>
+      <div class="jumbotron">
+         <div class="container">
+            <ul>
+               <li>Add an image</li>
+               <li>Click and drag your mouse around the area to extract</li>
+               <li>Click on the "extract" button</li>
+            </ul>
+         </div>
+      </div>
+      <div class="container images">
+         <div class="row">
+            <div class="col-md-6">
+               <div class="col-md-12" style="min-height: 135px;">
+                  <h2>Source</h2>
+                  <div class="btn-group row">
+                     <div class="col-md-2">
+                        <label class="btn btn-primary">Add<input class="input-file" id="my-file" type="file" style="display: none;"></label>
+                     </div>
+                     <div class="col-md-7">
+                        <input type="color" class="js-color-picker  color-picker">
+                        <input type="range" class="js-line-range" min="1" max="72" value="1">
+                        <label class="js-range-value">1</label>Pxs
+                     </div>
+                     <div class="col-md-2"><button onclick="grabCut()" class="btn btn-success" type="button">Extract foreg.</button></div>
+                  </div>
+               </div>
+               <canvas id="canvas1" class="js-paint paint-canvas" width="480" height="480"></canvas>
+            </div>
+            <div class="col-md-6">
+               <div class="col-md-12" style="min-height: 135px;">
+                  <h2>Result</h2>
+                  <div class="btn-group row">
+                     <div class="col-md-2">
+                        <button class="btn btn-primary" type="button" onclick="downloadImage()"> 
+                        <a id="download">Download</a>
+                        </button>
+                     </div>
+                  </div>
+               </div>
+               <canvas id="canvas2" width="480" height="480"></canvas>
+            </div>
+         </div>
+         <script src="lib/jquery/jquery-3.2.0.min.js"></script>
+         <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+         <script async="" defer="" src="lib/cv.js"></script>
+         <script defer="" src="index.js"></script>
+         <script defer="" src="draw.js"></script>
+      </div>
+   </body>
+</html>
