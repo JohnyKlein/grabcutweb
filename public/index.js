@@ -5,53 +5,11 @@ var original_image;
 var canvas1;
 var scaleFactor;
 
-setCallbacks();
+setChangeEvent();
 
-function setCallbacks() {
+function setChangeEvent() {
   var inputElement = document.getElementById("my-file");
   inputElement.addEventListener("change", onLoadImage, false);
-
-  canvas1 = document.getElementById("canvas1");
-  canvas1.addEventListener("mouseup", onMouseUp, false);
-  canvas1.addEventListener("mousedown", onMouseDown, false);
-  canvas1.addEventListener("mousemove", onMouseMove, false);
-}
-
-function onMouseUp(e) {
-  drag = false;
-}
-
-function onMouseDown(e) {
-  var mousePos = getMousePos(e);
-  rect.startX = mousePos.x;
-  rect.startY = mousePos.y;
-  drag = true;
-}
-
-function onMouseMove(e) {
-  if (drag) {
-    var mousePos = getMousePos(e);
-    rect.w = mousePos.x - rect.startX;
-    rect.h = mousePos.y - rect.startY;
-
-    if (rect.w && rect.h && rect.startX && rect.startY) {
-      var p1 = [rect.startX, rect.startY];
-      var p2 = [p1[0] + rect.w, p1[1] + rect.h];
-      var color = new cv.Scalar(0, 0, 255);
-      var imgWithRect = original_image.clone();
-      cv.rectangle(imgWithRect, p1, p2, color, 2, 8, 0);
-      show_image(imgWithRect, "canvas1");
-    }
-  }
-}
-
-function getMousePos(evt) {
-  var rect = canvas1.getBoundingClientRect();
-
-  return {
-    x: evt.clientX - rect.left,
-    y: evt.clientY - rect.top
-  };
 }
 
 function show_image(mat, canvas_id) {
@@ -80,12 +38,13 @@ function show_image(mat, canvas_id) {
 
 function onLoadImage(e) {
   var canvas = document.getElementById('canvas1');
-  var canvasWidth = 500;
-  var canvasHeight = 500;
+  var canvasWidth = 480;
+  var canvasHeight = 480;
   var ctx = canvas.getContext('2d');
+  setDrawEvents();
 
+  // clear data first
   if (original_image) {
-    // clear data first
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     var canvas2 = document.getElementById('canvas2');
     var ctx2 = canvas2.getContext('2d');
@@ -145,4 +104,18 @@ function downloadImage() {
   var a = document.getElementById("download");
   a.href = document.getElementById("canvas2").toDataURL();
   a.download = 'screenshot.png';
+}
+
+$('#square-mode').change(function() {
+  setDrawEvents();
+});
+
+function setDrawEvents() {
+  if (isSquareMode()) {
+    setOrRemoveDoodlesEvents(true);
+    setOrRemoveSquareEvents();
+  } else {
+    setOrRemoveSquareEvents(true);
+    setOrRemoveDoodlesEvents();
+  }
 }
